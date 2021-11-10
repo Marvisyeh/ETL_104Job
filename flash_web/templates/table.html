@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table</title>
+</head>
+<body>
+  <div>
+      <table>
+          <thead>
+            <tr>
+                {% for tr in rows[0] %}
+                <th>
+                    {{tr}}
+                </th>
+                {%endfor%}
+            </tr>
+          </thead>
+          <tbody>
+            {%for tb in rows[1:]%}
+            <tr>
+                {%for t in tb%}
+                <td>
+                    {{ t }}
+                </td>
+                {%endfor%}
+            </tr>
+            {%endfor%}
+          </tbody>
+      </table>
+  </div>
+</body>
+</html>
