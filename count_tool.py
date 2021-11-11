@@ -11,8 +11,8 @@ def cal_tool(df):
     retool = sorted(toolDict.items(), key=lambda x: x[1], reverse=True)
     li = [list(i) for i in retool]
     print(li)
-    with open('./numTool.csv', 'w', encoding='utf-8') as f:
-        writer = csv.writer(f)
+    with open('./numTool.csv', 'w', newline='', encoding='utf-8') as f:
+        writer = csv.writer(f, delimiter=',')
         writer.writerows(li)
 
 

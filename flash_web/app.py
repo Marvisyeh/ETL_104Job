@@ -1,3 +1,5 @@
+import csv
+
 from flask import Flask, request,send_from_directory, render_template
 import searchJob as s
 from openpyxl import load_workbook
@@ -21,7 +23,7 @@ def search_result():
         data = [row for row in rows]
     return render_template('table.html', rows=data)
 
-@app.route('/count'):
+@app.route('/count')
 def count():
     pass
 

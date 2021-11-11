@@ -1,3 +1,6 @@
+import lxml as lxml
+
+
 def search(jobtitle,page=1):
     import requests
     from bs4 import BeautifulSoup
@@ -17,8 +20,7 @@ def search(jobtitle,page=1):
     langFlag: 0'''
     payload = {p.split(': ')[0]: p.split(': ')[1] for p in payload.split('\n')}
 
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'}
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'}
     outurl = 'https://www.104.com.tw/jobs/search/?'
     payload['keyword'] = jobtitle
 
@@ -43,7 +45,7 @@ def search(jobtitle,page=1):
                 soup = BeautifulSoup(res.text, 'lxml')
                 title = soup.select('h1[class="title"]')[0].text
                 company = soup.select('h2[class="company"]')[0].text
-                loc = soup.select('td')[0].a.text.strip('\n').strip(' ')
+                loc = soup.select('td')[0].a.text.strip('\n').strip(' ').replace(' ','')
                 content = soup.select('div[class="content"]')[1].text.strip('\n').strip(' ')
                 salary = soup.select('div[class="content"]')[2].td.text.strip('\n').strip(' ').replace(' ', '').split('\n')[0]
                 title_url = soup.select('h2[class="company"]')[0].a['href']
@@ -58,17 +60,19 @@ def search(jobtitle,page=1):
                 except:
                     None
 
-                datas = [company, title, loc, content, salary, title_url, tool, prefer, others]
+                datas = [(company), (title), (loc), (content), (salary), (title_url), (tool), (prefer), (others)]
                 result.append(datas)
                 sleep(5)
 
         sleep(randint(2,5))
 
     df = pd.DataFrame(data=result, columns=columns)
-    df.to_xml('./return_result.xlsx')
-
+    df.to_xml('./for_excel.xlsx')
+    df.to_csv('./return_result.csv')
+    c.cal_tool(df)
 if __name__ =='__main__':
     import count_tool as c
     import pandas as pd
     search('資料分析師',3)
-    # df1 = pd.read_csv('./re104.csv', lineterminator='\n')
+    df1 = pd.read_csv('./return_result.csv', lineterminator='\n')
+
