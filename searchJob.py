@@ -1,13 +1,12 @@
 import lxml as lxml
-
+import requests
+from bs4 import BeautifulSoup
+from time import sleep
+from random import randint
+import pandas as pd
 
 def search(jobtitle,page=1):
-    import requests
-    from bs4 import BeautifulSoup
-    from time import sleep
-    from random import randint
-    import pandas as pd
-
+    
     payload = '''ro: 0
     kwop: 7
     keyword: 資料工程師
@@ -70,6 +69,7 @@ def search(jobtitle,page=1):
     df.to_xml('./for_excel.xlsx')
     df.to_csv('./return_result.csv')
     c.cal_tool(df)
+    
 if __name__ =='__main__':
     import count_tool as c
     import pandas as pd
