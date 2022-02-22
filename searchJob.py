@@ -4,9 +4,9 @@ from bs4 import BeautifulSoup
 from time import sleep
 from random import randint
 import pandas as pd
+import count_tool as c
 
-def search(jobtitle,page=1):
-    
+def search(jobtitle,page=1):    
     payload = '''ro: 0
     kwop: 7
     keyword: 資料工程師
@@ -71,8 +71,7 @@ def search(jobtitle,page=1):
     c.cal_tool(df)
     
 if __name__ =='__main__':
-    import count_tool as c
-    import pandas as pd
+    
     search('資料分析師',3)
-    df1 = pd.read_csv('./return_result.csv', lineterminator='\n')
+#     df1 = pd.read_csv('./return_result.csv', lineterminator='\n')
 
